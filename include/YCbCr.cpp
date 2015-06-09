@@ -107,12 +107,12 @@ ci::gl::GlslProgRef TextureYCbCr::mShader = nullptr;
 
 TextureYCbCr::TextureYCbCr(const SurfaceYCbCr& surf ){
     
-    setTexture(surf);
+    setSurfaceYCbCr(surf);
     
 }
 
 
-void TextureYCbCr::setTexture(const SurfaceYCbCr &surf){
+void TextureYCbCr::setSurfaceYCbCr(const SurfaceYCbCr &surf){
     
     YTex = gl::Texture::create( surf.getChannelLuma() );
     CrTex = gl::Texture::create( surf.getChannelChromaR() );

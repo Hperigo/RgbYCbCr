@@ -23,9 +23,7 @@ public:
     
     SurfaceYCbCr img;
     TextureYCbCr tex;
-    
-    
-    gl::TextureRef mTexture;
+
     
 };
 
@@ -33,17 +31,17 @@ public:
 void RGB_YCrCbApp::setup()
 {
     
-    original = loadImage(loadAsset("kid.png"));
+    original = loadImage(loadAsset("dog.jpg"));
+    setWindowSize(original.getSize());
     
     float scale = 0.25f;
-    Timer t;
+    Timer timer;
     
     // Create a YCbCr Surface -----
-    img = SurfaceYCbCr(original, scale);
-    t.start();
-    final = img.toSurface();
-    
-    console() << " compression and decompression took: " << t.getSeconds() << endl;
+    timer.start();
+    img = SurfaceYCbCr(original, scale); // create an compressed image
+    final = img.toSurface(); // get the surface back
+    console() << "compression and decompression took: " << timer.getSeconds() << " seconds" << endl;
     
     int size = original.getRowBytes() * original.getHeight();
     int csize =  img.getCompressedSize();
@@ -52,11 +50,9 @@ void RGB_YCrCbApp::setup()
     console() << "compressed image is: " << csize << " bytes" << endl;
     console() << "rate: " << size/(float)csize << endl;
     
-    mTexture = gl::Texture::create(final);
-    
     // Create a YCbCr Texture -----
     
-    tex.setTexture(img);
+    tex.setSurfaceYCbCr(img);
     
     
 }
@@ -73,17 +69,11 @@ void RGB_YCrCbApp::draw()
 {
     // clear out the window with black
     gl::clear( Color( 0, 0, 0 ) );
-    
-    Timer mTimer;
-    mTimer.start();
-    
-//    gl::draw(*mTexture);
-    
+
     tex.bindShaderTexture();
     gl::drawSolidRect(getWindowBounds());
     tex.unbindShaderTexture();
-    
-    console() << "t: " << mTimer.getSeconds() << endl;
+
 
 }
 

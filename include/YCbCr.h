@@ -52,7 +52,7 @@ public:
     
     void bindShaderTexture();
     void unbindShaderTexture();
-    void setTexture(const SurfaceYCbCr& surf);
+    void setSurfaceYCbCr(const SurfaceYCbCr& surf);
     
     ci::gl::TextureRef getYTexture() const  { return YTex;  };
     ci::gl::TextureRef getCbTexture() const { return CbTex; };
