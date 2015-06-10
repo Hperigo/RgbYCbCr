@@ -128,7 +128,7 @@ void TextureYCbCr::initializeShader(){
     if(!mShader){
     
         try {
-            mShader = gl::GlslProg::create( app::loadAsset("passThru_vert.glsl"), app::loadAsset("YCbCr_frag.glsl") );
+            mShader = gl::GlslProg::create( app::loadAsset("shaders/passThru_vert.glsl"), app::loadAsset("shaders/YCbCr_frag.glsl") );
         }
         catch( gl::GlslProgCompileExc &exc ) {
             std::cout << "Shader compile error: " << std::endl;

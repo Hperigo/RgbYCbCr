@@ -23,18 +23,18 @@ public:
     
     SurfaceYCbCr img;
     TextureYCbCr tex;
-
+    
     
 };
 
 
 void RGB_YCrCbApp::setup()
 {
-    
+    //image courtesy of Danilo Carneiro ( http://danilocarneiro.org/ )
     original = loadImage(loadAsset("dog.jpg"));
     setWindowSize(original.getSize());
     
-    float scale = 0.25f;
+    float scale = 0.01f;
     Timer timer;
     
     // Create a YCbCr Surface -----
@@ -53,8 +53,7 @@ void RGB_YCrCbApp::setup()
     // Create a YCbCr Texture -----
     
     tex.setSurfaceYCbCr(img);
-    
-    
+
 }
 
 void RGB_YCrCbApp::mouseDown( MouseEvent event )
@@ -69,12 +68,12 @@ void RGB_YCrCbApp::draw()
 {
     // clear out the window with black
     gl::clear( Color( 0, 0, 0 ) );
-
+    
     tex.bindShaderTexture();
     gl::drawSolidRect(getWindowBounds());
     tex.unbindShaderTexture();
-
-
+    
+    
 }
 
 CINDER_APP_NATIVE( RGB_YCrCbApp, RendererGl )

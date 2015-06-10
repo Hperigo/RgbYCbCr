@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cinder>
+
+	<block
+		name="RgbYCbCr"
+		id="uk.nocte.cixtract"
+		author="Henrique Penteado Kujawski Périgo"
+		summary="Implements YCbCr ( YUV ) image compression"
+		git="https://github.com/Hperigo/RgbYCbCr"
+		>
+
+		<sourcePattern>src/*.cpp</sourcePattern>
+		<headerPattern>src/*.h</headerPattern>
+
+    <includePath>src</includePath>
+
+    <asset>shaders/passThru_vert.glsl</asset>
+    <asset>shaders/YCbCr_frag.glsl</asset>
+
+	</block>
+
+</cinder>
