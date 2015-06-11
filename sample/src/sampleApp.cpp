@@ -34,7 +34,7 @@ void RGB_YCrCbApp::setup()
     original = loadImage(loadAsset("dog.jpg"));
     setWindowSize(original.getSize());
     
-    float scale = 0.01f;
+    float scale = 0.25f;
     Timer timer;
     
     // Create a YCbCr Surface -----
@@ -52,7 +52,6 @@ void RGB_YCrCbApp::setup()
     
     // Create a YCbCr Texture -----
     
-    tex.setSurfaceYCbCr(img);
 
 }
 
@@ -69,11 +68,19 @@ void RGB_YCrCbApp::draw()
     // clear out the window with black
     gl::clear( Color( 0, 0, 0 ) );
     
+    Timer timer;
+    timer.start();
+    gl::draw(gl::Texture::create(final));
+    console() << "surface to texture: " << timer.getSeconds() << endl;
+
+
+    timer.start();
+    tex.setSurfaceYCbCr(img);
+    
     tex.bindShaderTexture();
     gl::drawSolidRect(getWindowBounds());
     tex.unbindShaderTexture();
-    
-    
+    console() << "image to texture:   " << timer.getSeconds() << endl;
 }
 
 CINDER_APP_NATIVE( RGB_YCrCbApp, RendererGl )

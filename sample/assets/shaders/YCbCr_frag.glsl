@@ -7,15 +7,14 @@ uniform sampler2D Cb;
 
 void main(void)
 {
+
     vec3 yCbCr;
     yCbCr.x = texture2D(Y,  gl_TexCoord[0].st).x;
-    yCbCr.y = texture2D(Cr, gl_TexCoord[0].st).y;
-    yCbCr.z = texture2D(Cb, gl_TexCoord[0].st).z;
+    yCbCr.y = texture2D(Cb, gl_TexCoord[0].st).y - 0.5;
+    yCbCr.z = texture2D(Cr, gl_TexCoord[0].st).z - 0.5;
     
-    gl_FragColor.x = yCbCr.x + 1.140   * ( yCbCr.y - 0.5 );
-    gl_FragColor.y = yCbCr.x - 0.34414 * ( yCbCr.z - 0.5 ) - 0.71414 * ( yCbCr.y - 0.5 );
-    gl_FragColor.z = yCbCr.x + 1.772   * ( yCbCr.z - 0.5  );
-
-    gl_FragColor.xyz =  (gl_FragColor.xyz - vec3(0.5, 0.5, 0.5)) + vec3(0.5, 0.5, 0.5);
+    gl_FragColor.r = dot( vec3( 1.0,  0.0,      1.402 ),    yCbCr );
+    gl_FragColor.g = dot( vec3( 1.0 , -0.34414 , -0.71414 ), yCbCr );
+    gl_FragColor.b = dot( vec3( 1.0,  1.772,    0.0 ),      yCbCr );
     
 }
